@@ -20,5 +20,5 @@ from pets.views import TurtleView, TurtleViewID
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('turtles/', TurtleView.as_view()),
-    path('turtle/<id>/', TurtleViewID.as_view())
+    path('turtles/<id>/', TurtleViewID.as_view())
 ]

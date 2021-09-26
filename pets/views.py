@@ -43,6 +43,14 @@ class TurtleView(View):
 
 
 class TurtleViewID(View):
+    # Show route
+    def get(self, request, id):
+        # query for record
+        turtle = Turtle.objects.get(id=id)
+        # serialize, convert to dict
+        final_data = json.loads(serialize("json", [turtle]))
+        # send json response
+        return JsonResponse(final_data, safe=False)
 
     # Update route
     def put(self, request, id):
