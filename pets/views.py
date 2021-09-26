@@ -15,7 +15,7 @@ from .helpers import GetBody
 # class for model routes
 
 
-class TurtleView(view):
+class TurtleView(View):
     # Index route
     def get(self, request):
         # get all
@@ -37,4 +37,23 @@ class TurtleView(view):
         # Convert new item into json string, then a dict
         final_data = json.loads(serialize("json", [turtle]))
         # Send json response
+        return JsonResponse(final_data, safe=False)
+
+# class for "/turtle/<id>" routes
+
+
+class TurtleViewID(View):
+
+    # Update route
+    def put(self, request, id):
+        # get data from request body
+        body = GetBody(request)
+        # essentially copying over existing record
+        # ** unpacking body kvps
+        Turtle.objects.filter(id=id).update(**body)
+        # query for updated record
+        turtle = Turtle.objects.get(id=id)
+        # serialize and convert to dict
+        final_data = json.loads(serialize("json", [turtle]))
+        # return json data
         return JsonResponse(final_data, safe=False)
